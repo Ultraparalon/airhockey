@@ -11,7 +11,9 @@ void	wizard()
 	{
 		sdl.refresh();
 		logic.process(sdl.getEvents(), sdl.getCoordinates());
-		sdl.render(logic.getDrawable());
+		sdl.drawObj(logic.getDrawable());
+		sdl.render();
+		sdl.playSound(logic.getSound());
 	}
 }
 

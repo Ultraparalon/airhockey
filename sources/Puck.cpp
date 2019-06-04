@@ -2,6 +2,13 @@
 
 static void	findDest(int x, int y, int sx, int sy, int & endX, int & endY)
 {
+	if (x == sx && y == sy)
+	{
+		endY = rand() % 1000;
+		endX = rand() % 500;
+		return ;
+	}
+
 	int shiftX = x - sx;
 	int shiftY = y - sy;
 	endX = sx;
@@ -13,20 +20,47 @@ static void	findDest(int x, int y, int sx, int sy, int & endX, int & endY)
 	}
 }
 
-void	Puck::collision(Drawable * rhs)
+Puck::Puck(int y, int x) : Drawable(y, x, PUCK),
+			destY(0), destX(0), distance(0), power(0) {}
+
+bool	Puck::collision(Drawable * rhs)
 {
 	double r = sqrt(pow(getPosY() - rhs->getPosY(), 2)
 		+ pow(getPosX() - rhs->getPosX(), 2));
 	if (r == 0 || (64 >= r && 32 + r >= 32 && 32 + r >= 32))
 	{
 		//make power formula
-		// std::cout << r << std::endl;
-		power = 64 - r;
-		findDest(rhs->getPosX(), rhs->getPosY(),
-			getPosX(), getPosY(), destX, destY);
+		power = 64 - r + 1;
+		findDest(getPosX(), getPosY(),
+			rhs->getPosX(), rhs->getPosY(), destX, destY);
 
-		// setPosY(rand() % 500 + 500);
-		// setPosX(rand() % 500);
+		move();
+		return true;
+	}
+	return false;
+}
+
+void	invertDest(int y, int x, int & destY, int & destX)
+{
+	if (y <= 32 && (x < 100 || x > 300))
+	{
+		destY = 2000;
+		destX++;
+	}
+	if (y >= 968 && (x < 100 || x > 300))
+	{
+		destY = -1000;
+		destX--;
+	}
+	if (x <= 32)
+	{
+		destX = 1000;
+		destY++;
+	}
+	if (x >= 468)
+	{
+		destX = -500;
+		destY--;
 	}
 }
 
@@ -42,6 +76,7 @@ void	Puck::move()
 		int i;
 		for (i = power; i && (getPosY() != destY || getPosX() != destX); i--)
 		{
+			invertDest(getPosY(), getPosX(), destY, destX);
 			const int error2 = error * 2;
 			if (error2 > -deltaY)
 			{

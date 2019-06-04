@@ -4,31 +4,31 @@
 #include <list>
 #include "Drawable.hpp"
 #include "Player.hpp"
+#include "Bot.hpp"
 #include "Puck.hpp"
 
 class Logic
 {
 	std::list<Drawable *> drawObj;
+	int sound;
+
 	Drawable table;
 	Player player;
-	Drawable bot;
+	Bot bot;
 	Puck puck;
+	Drawable p_score;
+	Drawable b_score;
 
 public:
 	Logic();
 	~Logic() {};
 
-	void	process(unsigned int, unsigned int);
-
 	const std::list<Drawable *> & getDrawable();
+	int getSound();
+
+	void	process(unsigned int, unsigned int);
+	void	score();
+
 };
 
 #endif
-
-//bot atributes
-//speed
-
-//puck atributes
-//power //max power 16-24
-//distance
-//destanation //y, x

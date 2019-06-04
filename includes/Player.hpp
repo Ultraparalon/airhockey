@@ -5,10 +5,15 @@
 
 class Player : public Drawable
 {
+	int score;
+
 public:
-	Player() : Drawable(750, 250, PLAYER) {};
+	Player() : Drawable(750, 250, PLAYER), score(0) {};
 	virtual ~Player() {};
 
+	int getScore() { return score;}
+
+	void addPoint() { score++; }
 	void move(int, int);
 	
 };

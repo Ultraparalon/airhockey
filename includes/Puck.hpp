@@ -13,13 +13,15 @@ class Puck : public Drawable
 	int power;
 
 public:
-	Puck() : Drawable(500, 250, PUCK) {};
+	Puck() : Drawable(500, 250, PUCK)
+	{
+		destY = destX = distance = power = 0;
+	};
+	Puck(int, int);
 	virtual ~Puck() {};
 
-	void	collision(Drawable *);
+	bool	collision(Drawable *);
 	void	move();
-
-
 
 };
 
