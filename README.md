@@ -1,4 +1,5 @@
 airhockey game
+
 supports mouse)
 
 ![a:](https://github.com/Ultraparalon/airhockey/raw/master/screenshots/scr1.png)
