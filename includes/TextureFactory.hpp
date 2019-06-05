@@ -1,3 +1,7 @@
+//texture factory
+//creates texture obj
+//from images and strings
+
 #ifndef TEXTUREFACTORY_HPP
 #define TEXTUREFACTORY_HPP
 
@@ -10,7 +14,7 @@
 
 class TextureFactory
 {
-	SDL_Renderer *ren;
+	SDL_Renderer * ren;
 
 	SDL_Color color;
 
@@ -25,7 +29,7 @@ public:
 
 	void init(SDL_Renderer *);
 
-	Texture * createTexture(Drawable *);
+	Texture * createTexture(Drawable const * const);
 	Texture * createTexture(int);
 	
 };

@@ -49,7 +49,7 @@ void	TextureFactory::init(SDL_Renderer * rhs)
 	textures.push_back(loadtxr(ren, "resources/textures/background.jpg"));
 }
 
-Texture * TextureFactory::createTexture(Drawable * rhs)
+Texture * TextureFactory::createTexture(Drawable const * const rhs)
 {
 	SDL_Texture * texture;
 	SDL_Rect rect;

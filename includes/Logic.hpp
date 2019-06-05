@@ -1,3 +1,6 @@
+//all game logic is here
+//
+
 #ifndef LOGIC_HPP
 #define LOGIC_HPP
 
@@ -9,7 +12,7 @@
 
 class Logic
 {
-	std::list<Drawable *> drawObj;
+	std::list<Drawable const * const> drawObj;
 	int sound;
 
 	Drawable table;
@@ -23,7 +26,7 @@ public:
 	Logic();
 	~Logic() {};
 
-	const std::list<Drawable *> & getDrawable();
+	const std::list<Drawable const * const> & getDrawable();
 	int getSound();
 
 	void	process(unsigned int, unsigned int);

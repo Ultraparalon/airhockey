@@ -1,3 +1,7 @@
+//reads input changes
+//sends all key that are downed
+//and mouse coordinates
+
 #ifndef INPUT_HPP
 #define INPUT_HPP
 

@@ -1,9 +1,11 @@
+//Base class of all drawable objects
+
 #ifndef DRAWABLE_HPP
 #define DRAWABLE_HPP
 
 #include <string>
 
-enum eTexture
+enum eTexture //needed to find texture in container
 {
 	TABLE,
 	PLAYER,
@@ -21,18 +23,19 @@ class Drawable
 
 public:
 	Drawable();
-	Drawable(int, int, eTexture);
-	Drawable(int, int, eTexture, std::string);
+	Drawable(const int, const int, const eTexture);
+	Drawable(const int, const int,
+		const eTexture, const std::string);
 	~Drawable() {}
 
-	int getPosX() const {return posx;}
-	int getPosY() const {return posy;}
-	eTexture getTexture() const {return texture;}
+	int getPosX() const { return posx; }
+	int getPosY() const { return posy; }
+	eTexture getTexture() const { return texture; }
 	std::string getName() const { return name; }
 
-	void setPosX(int x) {posx = x;}
-	void setPosY(int y) {posy = y;}
-	void setName(std::string str) {name = str;}
+	void setPosX(const int x) { posx = x; }
+	void setPosY(const int y) { posy = y; }
+	void setName(const std::string str) { name = str; }
 	
 };
 

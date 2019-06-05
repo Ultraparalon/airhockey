@@ -1,3 +1,5 @@
+// Class that contains texture and atributes of it
+
 #ifndef TEXTURE_HPP
 #define TEXTURE_HPP
 

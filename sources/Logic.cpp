@@ -21,17 +21,17 @@ void	Logic::process(unsigned int events, unsigned int coords)
 	sound = 0;
 	player.move(((coords >> 16) & 0xffff), (coords & 0xffff));
 	bot.move(&puck);
-	while (puck.collision(&player)) 
+	while (puck.collision(&player)) //check collisiion of puck with player
 	{
 		sound = 1;
 	}
-	while (puck.collision(&bot))
+	while (puck.collision(&bot)) // and bot
 	{
 		sound = 1;
 	}
 	puck.move();
 
-	score();
+	score(); // detects score changes
 }
 
 void	Logic::score()
@@ -52,12 +52,13 @@ void	Logic::score()
 	}
 }
 
-const std::list<Drawable *> & Logic::getDrawable()
+//return container with objects to draw on screen
+const std::list<Drawable const * const> & Logic::getDrawable()
 {
-	// drawObj.clear();
 	return drawObj;
 }
 
+//return signal to play sound
 int	Logic::getSound()
 {
 	return sound;

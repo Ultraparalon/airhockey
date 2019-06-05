@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Logic.hpp"
 #include "MuliSdl.hpp"
 
@@ -20,6 +19,5 @@ void	wizard()
 int main()
 {
 	wizard();
-	system("leaks airhockey");
 	return 0;
 }

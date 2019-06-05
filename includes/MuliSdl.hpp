@@ -1,3 +1,7 @@
+//multimedia object
+//that contains video audio and input
+//redirects signals and containers
+
 #ifndef MULISDL_HPP
 #define MULISDL_HPP
 
@@ -21,9 +25,9 @@ public:
 	unsigned int getCoordinates() const {return input.getCoordinates();};
 
 	void refresh() {input.refresh(); };
-	void drawObj(const std::list<Drawable *> &);
+	void drawObj(const std::list<Drawable const * const> &);
 	void render();
-	void playSound(int);
+	void playSound(const int);
 	
 };
 

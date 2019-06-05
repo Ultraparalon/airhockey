@@ -1,3 +1,7 @@
+//Graphic interface
+//rendering objects from source container
+//
+
 #ifndef GUI_HPP
 #define GUI_HPP
 
@@ -11,8 +15,8 @@ class Gui
 {
 	int request;
 	SDL_DisplayMode displayMode;
-	SDL_Window *win;
-	SDL_Renderer *ren;
+	SDL_Window * win;
+	SDL_Renderer * ren;
 
 	TextureFactory tFactory;
 
@@ -20,7 +24,7 @@ public:
 	Gui();
 	~Gui();
 
-	void drawObj(const std::list<Drawable *> &);
+	void drawObj(const std::list<Drawable const * const> &);
 	void render();
 	
 };

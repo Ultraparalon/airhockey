@@ -7,13 +7,13 @@
 
 class Audio
 {
-	Mix_Chunk * kick;
+	Mix_Chunk * kick; // pointer to Wav source
 
 public:
 	Audio();
 	~Audio();
 
-	void play(int);
+	void play(const int);
 	
 };
 

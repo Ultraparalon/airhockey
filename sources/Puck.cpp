@@ -1,5 +1,6 @@
 #include "Puck.hpp"
 
+// search for destination of trajectory
 static void	findDest(int x, int y, int sx, int sy, int & endX, int & endY, int distance)
 {
 	if (x == sx && y == sy)
@@ -23,7 +24,7 @@ static void	findDest(int x, int y, int sx, int sy, int & endX, int & endY, int d
 Puck::Puck(int y, int x) : Drawable(y, x, PUCK),
 			destY(0), destX(0), distance(0), power(0) {}
 
-bool	Puck::collision(Drawable * rhs)
+bool	Puck::collision(Drawable * rhs) // detects collision
 {
 	double r = sqrt(pow(getPosY() - rhs->getPosY(), 2)
 		+ pow(getPosX() - rhs->getPosX(), 2));
@@ -40,7 +41,7 @@ bool	Puck::collision(Drawable * rhs)
 	return false;
 }
 
-void	Puck::borders()
+void	Puck::borders() // checks if puck close to borders
 {
 	if (getPosY() < 32 && (getPosX() < 160 || getPosX() > 340))
 	{
@@ -64,7 +65,7 @@ void	Puck::borders()
 	}
 }
 
-void	Puck::move()
+void	Puck::move() // move puck
 {
 	if (power)
 	{

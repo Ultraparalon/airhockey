@@ -1,3 +1,6 @@
+// Bot
+// Just following puck
+
 #ifndef BOT_HPP
 #define BOT_HPP
 
@@ -15,7 +18,7 @@ public:
 	int getScore() { return score;}
 
 	void addPoint() { score++; }
-	void move(Drawable *);
+	void move(Drawable const * const);
 	
 };
 

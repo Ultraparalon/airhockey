@@ -24,13 +24,13 @@ static unsigned int mouseaction(const unsigned short button)
 
 void	Input::refresh()
 {
-	while (SDL_PollEvent(&event))
+	while (SDL_PollEvent(&event)) // read all input events
 	{
 		SDL_PumpEvents();
 
 		switch (event.type)
 		{
-			case SDL_MOUSEMOTION:
+			case SDL_MOUSEMOTION: //mouse coords
 				coordinates = (event.motion.y << 16) + event.motion.x;
 				break;
 			case SDL_MOUSEBUTTONDOWN:
