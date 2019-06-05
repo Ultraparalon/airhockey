@@ -17,7 +17,7 @@ Audio::Audio()
 		error("Cannot open audio");
 	}
 
-	kick = Mix_LoadWAV("resources/sounds/kick.wav");
+	kick = Mix_LoadWAV("resources/sounds/kick.wav"); // sound of drum kick
 	if (kick == nullptr)
 	{
 		error("Couldn't load kick");

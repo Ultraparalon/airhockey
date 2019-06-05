@@ -5,7 +5,7 @@ TextureFactory::TextureFactory()
 {
 	TTF_Init();
 
-	color = {0x0f, 0x0f, 0x0f, 0x0f};
+	color = {0x0f, 0x0f, 0x0f, 0x7f};
 
 	defFont = TTF_OpenFont("resources/fonts/test.ttf", 48);
 	if (!defFont)
