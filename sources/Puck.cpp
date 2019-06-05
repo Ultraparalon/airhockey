@@ -1,6 +1,6 @@
 #include "Puck.hpp"
 
-static void	findDest(int x, int y, int sx, int sy, int & endX, int & endY)
+static void	findDest(int x, int y, int sx, int sy, int & endX, int & endY, int distance)
 {
 	if (x == sx && y == sy)
 	{
@@ -13,7 +13,7 @@ static void	findDest(int x, int y, int sx, int sy, int & endX, int & endY)
 	int shiftY = y - sy;
 	endX = sx;
 	endY = sy;
-	for (int h = 1000; h > 0; h -= (abs(shiftX) + abs(shiftY)))
+	for (int h = distance; h > 0; h -= (abs(shiftX) + abs(shiftY)))
 	{
 		endX += shiftX;
 		endY += shiftY;
@@ -29,10 +29,10 @@ bool	Puck::collision(Drawable * rhs)
 		+ pow(getPosX() - rhs->getPosX(), 2));
 	if (r == 0 || (64 >= r && 32 + r >= 32 && 32 + r >= 32))
 	{
-		//make power formula
-		power = 64 - r + 1;
+		power = (64 - r) + 2;
+		distance += (power << 8);
 		findDest(getPosX(), getPosY(),
-			rhs->getPosX(), rhs->getPosY(), destX, destY);
+			rhs->getPosX(), rhs->getPosY(), destX, destY, distance);
 
 		move();
 		return true;
@@ -40,27 +40,27 @@ bool	Puck::collision(Drawable * rhs)
 	return false;
 }
 
-void	invertDest(int y, int x, int & destY, int & destX)
+void	Puck::borders()
 {
-	if (y <= 32 && (x < 100 || x > 300))
+	if (getPosY() < 32 && (getPosX() < 160 || getPosX() > 340))
 	{
 		destY = 2000;
-		destX++;
 	}
-	if (y >= 968 && (x < 100 || x > 300))
+	if (getPosY() > 968 && (getPosX() < 160 || getPosX() > 340))
 	{
 		destY = -1000;
-		destX--;
 	}
-	if (x <= 32)
+	if (getPosX() < 32)
 	{
 		destX = 1000;
-		destY++;
+		if (getPosX() < 16)
+			setPosX(getPosX() + 32);
 	}
-	if (x >= 468)
+	if (getPosX() > 468)
 	{
 		destX = -500;
-		destY--;
+		if (getPosX() > 484)
+			setPosX(getPosX() - 32);
 	}
 }
 
@@ -73,11 +73,12 @@ void	Puck::move()
 		int signX = getPosX() < destX ? 1 : -1;
 		int signY = getPosY() < destY ? 1 : -1;
 		int error = deltaX - deltaY;
-		int i;
-		for (i = power; i && (getPosY() != destY || getPosX() != destX); i--)
+		for (int i = power;
+			i > 0 && (getPosY() != destY || getPosX() != destX); i--)
 		{
-			invertDest(getPosY(), getPosX(), destY, destX);
-			const int error2 = error * 2;
+			borders(); // need improvement
+			
+			int error2 = error * 2;
 			if (error2 > -deltaY)
 			{
 				error -= deltaY;
@@ -87,8 +88,7 @@ void	Puck::move()
 			{
 				error += deltaX;
 				setPosY(getPosY() + signY);
-			}
+			}			
 		}
 	}
-	//make movement formula
 }

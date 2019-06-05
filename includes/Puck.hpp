@@ -21,6 +21,7 @@ public:
 	virtual ~Puck() {};
 
 	bool	collision(Drawable *);
+	void	borders();
 	void	move();
 
 };

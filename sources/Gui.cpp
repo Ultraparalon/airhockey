@@ -15,7 +15,8 @@ Gui::Gui()
 	}
 	request = SDL_GetDesktopDisplayMode(0, &displayMode);
 	
-	win = SDL_CreateWindow("Test", 0, 0, displayMode.w, displayMode.h, SDL_WINDOW_SHOWN);
+	// win = SDL_CreateWindow("Test", 0, 0, displayMode.w, displayMode.h, SDL_WINDOW_SHOWN);
+	win = SDL_CreateWindow("Test", 0, 0, 500, 1000, SDL_WINDOW_SHOWN);
 	if (win == nullptr)
 	{
 		error("SDL_CreateWindow Error: ");
@@ -26,43 +27,31 @@ Gui::Gui()
 	{
 		error("SDL_CreateRenderer Error: ");
 	}
-	SDL_SetWindowFullscreen(win, SDL_WINDOW_FULLSCREEN);
 
-	TTF_Init();
-	defFont = TTF_OpenFont("resources/fonts/defFont.ttf", 48);
+	// SDL_SetWindowFullscreen(win, SDL_WINDOW_FULLSCREEN);
 
-	textures.push_back(IMG_LoadTexture(ren, "resources/textures/table.png"));
-	textures.push_back(IMG_LoadTexture(ren, "resources/textures/player.png"));
-	textures.push_back(IMG_LoadTexture(ren, "resources/textures/enemy.png"));
-	textures.push_back(IMG_LoadTexture(ren, "resources/textures/puck.png"));
-	textures.push_back(IMG_LoadTexture(ren, "resources/textures/background.jpg"));
+	tFactory.init(ren);
 }
 
 Gui::~Gui()
 {
 	SDL_DestroyRenderer(ren);
 	SDL_DestroyWindow(win);
-
-	TTF_CloseFont(defFont);
-	//destoy textures
 }
 
 void	Gui::drawObj(const std::list<Drawable *> & rhs)
 {
-	SDL_Rect rect;
+	std::shared_ptr<Texture> t(tFactory.createTexture(BACK));
 
-	SDL_RenderCopy(ren, textures.back(), NULL, NULL);
+	SDL_RenderCopy(ren, t->getTexture(), NULL, NULL);
+
 	for (std::list<Drawable *>::const_iterator it = rhs.begin(); it != rhs.end(); it++)
 	{
-		if ((*it)->getTexture() == STRING)
+		t = std::shared_ptr<Texture>(tFactory.createTexture((*it)));
+		if (t != nullptr)
 		{
-			continue;
+			SDL_RenderCopy(ren, t->getTexture(), NULL, t->getRect());
 		}
-		SDL_QueryTexture(textures[(*it)->getTexture()],
-			NULL, NULL, &rect.w, &rect.h);
-		rect.y = (*it)->getPosY() - rect.h / 2;
-		rect.x = (*it)->getPosX() - rect.w / 2;
-		SDL_RenderCopy(ren, textures[(*it)->getTexture()], NULL, &rect);
 	}
 }
 

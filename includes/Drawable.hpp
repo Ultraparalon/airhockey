@@ -9,6 +9,7 @@ enum eTexture
 	PLAYER,
 	ENEMY,
 	PUCK,
+	BACK,
 	STRING
 };
 
@@ -27,6 +28,7 @@ public:
 	int getPosX() const {return posx;}
 	int getPosY() const {return posy;}
 	eTexture getTexture() const {return texture;}
+	std::string getName() const { return name; }
 
 	void setPosX(int x) {posx = x;}
 	void setPosY(int y) {posy = y;}

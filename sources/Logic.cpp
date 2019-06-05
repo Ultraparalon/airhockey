@@ -3,10 +3,17 @@
 Logic::Logic()
 {
 	table = Drawable(500, 250, TABLE);
-	b_score = Drawable(250, 600, STRING, "0");
-	p_score = Drawable(750, 600, STRING, "0");
+	b_score = Drawable(250, 250, STRING, "0");
+	p_score = Drawable(750, 250, STRING, "0");
 
 	sound = 0;
+
+	drawObj.push_back(&table);
+	drawObj.push_back(&player);
+	drawObj.push_back(&bot);
+	drawObj.push_back(&puck);
+	drawObj.push_back(&b_score);
+	drawObj.push_back(&p_score);
 }
 
 void	Logic::process(unsigned int events, unsigned int coords)
@@ -47,13 +54,7 @@ void	Logic::score()
 
 const std::list<Drawable *> & Logic::getDrawable()
 {
-	drawObj.clear();
-	drawObj.push_back(&table);
-	drawObj.push_back(&player);
-	drawObj.push_back(&bot);
-	drawObj.push_back(&puck);
-	drawObj.push_back(&b_score);
-	drawObj.push_back(&p_score);
+	// drawObj.clear();
 	return drawObj;
 }
 

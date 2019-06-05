@@ -22,7 +22,6 @@ public:
 
 	void refresh() {input.refresh(); };
 	void drawObj(const std::list<Drawable *> &);
-	void drawStr(const std::list<std::string> &);
 	void render();
 	void playSound(int);
 	

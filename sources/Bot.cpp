@@ -13,7 +13,7 @@ void	Bot::move(Drawable * rhs)
 			this->setPosX(this->getPosX() - 1);
 		}
 
-		if (this->getPosY() <= 468 && rhs->getPosY() > this->getPosY())
+		if (this->getPosY() <= 448 && rhs->getPosY() > this->getPosY())
 		{
 			this->setPosY(this->getPosY() + 1);
 		}
