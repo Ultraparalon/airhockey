@@ -9,7 +9,7 @@ class Player : public Drawable
 
 public:
 	Player() : Drawable(750, 250, PLAYER), score(0) {};
-	virtual ~Player() {};
+	~Player() {};
 
 	int getScore() { return score;}
 
