@@ -13,7 +13,7 @@ class Bot : public Drawable
 
 public:
 	Bot() : Drawable(250, 250, ENEMY), speed(3), score(0) {};
-	virtual ~Bot() {};
+	~Bot() {};
 	
 	int getScore() { return score;}
 
