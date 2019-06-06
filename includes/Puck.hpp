@@ -18,7 +18,7 @@ public:
 		destY = destX = distance = power = 0;
 	};
 	Puck(int, int);
-	virtual ~Puck() {};
+	~Puck() {};
 
 	bool	collision(Drawable *);
 	void	borders();
