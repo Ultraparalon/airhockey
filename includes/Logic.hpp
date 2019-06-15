@@ -9,10 +9,10 @@
 #include "Player.hpp"
 #include "Bot.hpp"
 #include "Puck.hpp"
+#include "EventKeeper.hpp"
 
 class Logic
 {
-	std::list<Drawable const * const> drawObj;
 	int sound;
 
 	Drawable table;
@@ -22,6 +22,8 @@ class Logic
 	Drawable p_score;
 	Drawable b_score;
 
+	std::list<Drawable const * const> drawObj;
+
 public:
 	Logic();
 	~Logic() {};
@@ -29,7 +31,7 @@ public:
 	const std::list<Drawable const * const> & getDrawable();
 	int getSound();
 
-	void	process(unsigned int, unsigned int);
+	void	process(const EventKeeper &);
 	void	score();
 
 };

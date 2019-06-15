@@ -1,15 +1,17 @@
 #include "Logic.hpp"
 #include "MuliSdl.hpp"
+#include "EventKeeper.hpp"
 
 void	wizard()
 {
 	Logic logic;
 	MuliSdl sdl;
+	EventKeeper events;
 
-	while (!(sdl.getEvents() & (1 << 9)))
+	while (!events.getExit())
 	{
-		sdl.refresh();
-		logic.process(sdl.getEvents(), sdl.getCoordinates());
+		sdl.refresh(events);
+		logic.process(events);
 		sdl.drawObj(logic.getDrawable());
 		sdl.render();
 		sdl.playSound(logic.getSound());

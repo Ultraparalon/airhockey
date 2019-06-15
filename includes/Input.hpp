@@ -7,21 +7,23 @@
 
 #include <SDL.h>
 #include <iostream>
+#include "EventKeeper.hpp"
+
+enum eState
+{
+	OFF,
+	ON
+};
 
 class Input
 {
-	unsigned int events;
-	unsigned int coordinates;
 	SDL_Event event;
 
 public:
-	Input() : events(0), coordinates(0) {}
-	~Input() {}
+	Input();
+	~Input();
 
-	unsigned int getEvents() const;
-	unsigned int getCoordinates() const;
-
-	void refresh();
+	void refresh(EventKeeper &);
 	
 };
 

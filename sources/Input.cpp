@@ -1,28 +1,34 @@
 #include "Input.hpp"
 
-unsigned int Input::getEvents() const 		{	return events;		}
-unsigned int Input::getCoordinates() const	{	return coordinates;	}
+Input::Input() {};
+Input::~Input() {};
 
-static unsigned int keyaction(const unsigned short key)
+static void keyaction(EventKeeper & ek,
+	const unsigned short key, const bool state)
 {
 	switch (key)
 	{
-		case SDLK_ESCAPE:	return (1 << 9);
-		default: return 0;
+		case SDLK_ESCAPE:
+			ek.setExit(state);
+			break;
 	}
 }
 
-static unsigned int mouseaction(const unsigned short button)
+static void mouseaction(EventKeeper & ek,
+	const unsigned short button, const bool state)
 {
 	switch (button)
 	{
-		case SDL_BUTTON_LEFT: return 1;
-		case SDL_BUTTON_RIGHT: return (1 << 2);
-		default: return 0;
+		case SDL_BUTTON_LEFT:
+			ek.setLMB(state);
+			break;
+		case SDL_BUTTON_RIGHT:
+			ek.setRMB(state);
+			break;
 	}
 }
 
-void	Input::refresh()
+void	Input::refresh(EventKeeper & ek)
 {
 	while (SDL_PollEvent(&event)) // read all input events
 	{
@@ -31,22 +37,23 @@ void	Input::refresh()
 		switch (event.type)
 		{
 			case SDL_MOUSEMOTION: //mouse coords
-				coordinates = (event.motion.y << 16) + event.motion.x;
+				ek.setMouseY(event.motion.y);
+				ek.setMouseX(event.motion.x);
 				break;
 			case SDL_MOUSEBUTTONDOWN:
-				events |= mouseaction(event.button.button);
+				mouseaction(ek, event.button.button, ON);
 				break;
 			case SDL_MOUSEBUTTONUP:
-				events &= ~(mouseaction(event.button.button));
+				mouseaction(ek, event.button.button, OFF);
 				break;
 			case SDL_KEYDOWN:
-				events |= keyaction(event.key.keysym.sym);
+				keyaction(ek, event.key.keysym.sym, ON);
 				break;
 			case SDL_KEYUP:
-				events &= ~(keyaction(event.key.keysym.sym));
+				keyaction(ek, event.key.keysym.sym, OFF);
 				break;
 			case SDL_QUIT:
-				events |= (1 << 9);
+				keyaction(ek, SDLK_ESCAPE, ON);
 				break;
 		}
 	}

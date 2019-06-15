@@ -10,6 +10,7 @@
 #include "Input.hpp"
 #include "Audio.hpp"
 #include "Drawable.hpp"
+#include "EventKeeper.hpp"
 
 class MuliSdl
 {
@@ -18,16 +19,13 @@ class MuliSdl
 	Audio audio;
 
 public:
-	MuliSdl() {};
-	~MuliSdl() {};
+	MuliSdl();
+	~MuliSdl();
 
-	unsigned int getEvents() const {return input.getEvents();};
-	unsigned int getCoordinates() const {return input.getCoordinates();};
-
-	void refresh() {input.refresh(); };
+	void refresh(EventKeeper &);
 	void drawObj(const std::list<Drawable const * const> &);
-	void render();
 	void playSound(const int);
+	void render();
 	
 };
 

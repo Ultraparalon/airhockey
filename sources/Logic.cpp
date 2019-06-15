@@ -16,10 +16,10 @@ Logic::Logic()
 	drawObj.push_back(&p_score);
 }
 
-void	Logic::process(unsigned int events, unsigned int coords)
+void	Logic::process(const EventKeeper & ek)
 {
 	sound = 0;
-	player.move(((coords >> 16) & 0xffff), (coords & 0xffff));
+	player.move(ek.getMouseY(), ek.getMouseX());
 	bot.move(&puck);
 	while (puck.collision(&player)) //check collisiion of puck with player
 	{
