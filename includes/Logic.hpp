@@ -26,7 +26,7 @@ class Logic
 
 public:
 	Logic();
-	~Logic() {};
+	~Logic();
 
 	const std::list<Drawable const * const> & getDrawable();
 	int getSound();

@@ -1,19 +1,19 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include "Drawable.hpp"
+#include "Round.hpp"
 
-class Player : public Drawable
+class Player : public Round
 {
 	int score;
 
 public:
-	Player() : Drawable(750, 250, PLAYER), score(0) {};
-	~Player() {};
+	Player();
+	~Player();
 
-	int getScore() { return score;}
+	int getScore() const;
 
-	void addPoint() { score++; }
+	void addPoint();
 	void move(int, int);
 	
 };

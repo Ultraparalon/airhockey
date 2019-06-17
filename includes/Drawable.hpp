@@ -26,16 +26,16 @@ public:
 	Drawable(const int, const int, const eTexture);
 	Drawable(const int, const int,
 		const eTexture, const std::string);
-	~Drawable() {}
+	~Drawable();
 
-	int getPosX() const { return posx; }
-	int getPosY() const { return posy; }
-	eTexture getTexture() const { return texture; }
-	std::string getName() const { return name; }
+	int getPosX() const;
+	int getPosY() const;
+	eTexture getTexture() const;
+	std::string getName() const;
 
-	void setPosX(const int x) { posx = x; }
-	void setPosY(const int y) { posy = y; }
-	void setName(const std::string str) { name = str; }
+	void setPosX(const int x);
+	void setPosY(const int y);
+	void setName(const std::string str);
 	
 };
 

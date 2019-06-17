@@ -1,5 +1,13 @@
 #include "Puck.hpp"
 
+Puck::Puck() : Round(32, 500, 250, PUCK)
+{
+	destY = destX = distance = power = 0;
+}
+
+Puck::Puck(int y, int x) : Round(32, y, x, PUCK),
+			destY(0), destX(0), distance(0), power(0) {}
+
 // search for destination of trajectory
 static void	findDest(int x, int y, int sx, int sy, int & endX, int & endY, int distance)
 {
@@ -21,17 +29,18 @@ static void	findDest(int x, int y, int sx, int sy, int & endX, int & endY, int d
 	}
 }
 
-Puck::Puck(int y, int x) : Drawable(y, x, PUCK),
-			destY(0), destX(0), distance(0), power(0) {}
-
-bool	Puck::collision(Drawable * rhs) // detects collision
+// detects collision
+bool	Puck::collision(Round * rhs)
 {
 	double r = sqrt(pow(getPosY() - rhs->getPosY(), 2)
 		+ pow(getPosX() - rhs->getPosX(), 2));
-	if (r == 0 || (64 >= r && 32 + r >= 32 && 32 + r >= 32))
+	if ((r == 0 && this->getRadius() == rhs->getRadius()) ||
+		(this->getRadius() + rhs->getRadius() >= r &&
+			this->getRadius() + r >= rhs->getRadius() &&
+			rhs->getRadius() + r >= this->getRadius()))
 	{
-		power = (64 - r) + 2;
-		distance += (power << 8);
+		power = (this->getRadius() + rhs->getRadius() - r) + 2;
+		distance += (power * 256);
 		findDest(getPosX(), getPosY(),
 			rhs->getPosX(), rhs->getPosY(), destX, destY, distance);
 
@@ -41,7 +50,8 @@ bool	Puck::collision(Drawable * rhs) // detects collision
 	return false;
 }
 
-void	Puck::borders() // checks if puck close to borders
+// checks if puck close to borders
+void	Puck::borders()
 {
 	if (getPosY() < 32 && (getPosX() < 160 || getPosX() > 340))
 	{
@@ -65,7 +75,8 @@ void	Puck::borders() // checks if puck close to borders
 	}
 }
 
-void	Puck::move() // move puck
+// move puck
+void	Puck::move()
 {
 	if (power)
 	{

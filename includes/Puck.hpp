@@ -3,24 +3,21 @@
 
 #include <cmath>
 #include <cstdlib>
-#include "Drawable.hpp"
+#include "Round.hpp"
 #include <iostream>
 
-class Puck : public Drawable
+class Puck : public Round
 {
 	int destY, destX;
 	int distance;
 	int power;
 
 public:
-	Puck() : Drawable(500, 250, PUCK)
-	{
-		destY = destX = distance = power = 0;
-	};
+	Puck();
 	Puck(int, int);
 	~Puck() {};
 
-	bool	collision(Drawable *);
+	bool	collision(Round *);
 	void	borders();
 	void	move();
 

@@ -16,6 +16,20 @@ Logic::Logic()
 	drawObj.push_back(&p_score);
 }
 
+Logic::~Logic() {}
+
+//return container with objects to draw on screen
+const std::list<Drawable const * const> & Logic::getDrawable()
+{
+	return drawObj;
+}
+
+//return signal to play sound
+int	Logic::getSound()
+{
+	return sound;
+}
+
 void	Logic::process(const EventKeeper & ek)
 {
 	sound = 0;
@@ -50,16 +64,4 @@ void	Logic::score()
 		b_score.setName(std::to_string(bot.getScore()));
 		puck = Puck(750, 250);
 	}
-}
-
-//return container with objects to draw on screen
-const std::list<Drawable const * const> & Logic::getDrawable()
-{
-	return drawObj;
-}
-
-//return signal to play sound
-int	Logic::getSound()
-{
-	return sound;
 }

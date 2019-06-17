@@ -4,20 +4,20 @@
 #ifndef BOT_HPP
 #define BOT_HPP
 
-#include "Drawable.hpp"
+#include "Round.hpp"
 
-class Bot : public Drawable
+class Bot : public Round
 {
 	int speed;
 	int score;
 
 public:
-	Bot() : Drawable(250, 250, ENEMY), speed(3), score(0) {};
-	~Bot() {};
+	Bot();
+	~Bot();
 	
-	int getScore() { return score;}
+	int getScore();
 
-	void addPoint() { score++; }
+	void addPoint();
 	void move(Drawable const * const);
 	
 };

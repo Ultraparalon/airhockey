@@ -1,6 +1,20 @@
 #include "Bot.hpp"
 
-void	Bot::move(Drawable const * const rhs)
+Bot::Bot() : Round(32, 250, 250, ENEMY), speed(3), score(0) {};
+Bot::~Bot() {}
+
+//Getters------------------------------------
+int Bot::getScore()
+{
+	return score;
+}
+
+void Bot::addPoint()
+{
+	score++;
+}
+
+void Bot::move(Drawable const * const rhs)
 {
 	for (int i = speed; i; i--)
 	{
