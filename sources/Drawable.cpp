@@ -43,6 +43,12 @@ void Drawable::setPosX(const int x)
 	posx = x;
 }
 
+void Drawable::setPos(const int y, const int x)
+{
+	posy = y;
+	posx = x;
+}
+
 void Drawable::setName(const std::string str)
 {
 	name = str;

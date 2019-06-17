@@ -9,13 +9,14 @@
 #include "Player.hpp"
 #include "Bot.hpp"
 #include "Puck.hpp"
+#include "Table.hpp"
 #include "EventKeeper.hpp"
 
 class Logic
 {
 	int sound;
 
-	Drawable table;
+	Table table;
 	Player player;
 	Bot bot;
 	Puck puck;

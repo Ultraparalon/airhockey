@@ -8,13 +8,32 @@ Puck::Puck() : Round(32, 500, 250, PUCK)
 Puck::Puck(int y, int x) : Round(32, y, x, PUCK),
 			destY(0), destX(0), distance(0), power(0) {}
 
+//Setters-------------
+void Puck::setDistance(const int i)
+{
+	distance = i;
+}
+
+// border initialisation
+void Puck::initBorders(int y, int x)
+{
+	upBorder = getRadius();
+	downBorder = y - getRadius();
+	leftBorder = getRadius();
+	rightBorder = x - getRadius();
+	gateStart = x * 0.3;
+	gateEnd = x * 0.7;
+}
+
 // search for destination of trajectory
 static void	findDest(int x, int y, int sx, int sy, int & endX, int & endY, int distance)
 {
 	if (x == sx && y == sy)
 	{
-		endY = rand() % 1000;
-		endX = rand() % 500;
+		// if somehow start and end is the same
+		// just init with random values
+		endY = rand();
+		endX = rand();
 		return ;
 	}
 
@@ -22,6 +41,8 @@ static void	findDest(int x, int y, int sx, int sy, int & endX, int & endY, int d
 	int shiftY = y - sy;
 	endX = sx;
 	endY = sy;
+
+	// builts line from base coordinates
 	for (int h = distance; h > 0; h -= (abs(shiftX) + abs(shiftY)))
 	{
 		endX += shiftX;
@@ -30,66 +51,83 @@ static void	findDest(int x, int y, int sx, int sy, int & endX, int & endY, int d
 }
 
 // detects collision
-bool	Puck::collision(Round * rhs)
+bool Puck::collision(Round * rhs)
 {
-	double r = sqrt(pow(getPosY() - rhs->getPosY(), 2)
-		+ pow(getPosX() - rhs->getPosX(), 2));
+	//init distance between rounds
+	double r = sqrt(pow(this->getPosY() - rhs->getPosY(), 2)
+		+ pow(this->getPosX() - rhs->getPosX(), 2));
+
+	// colission check
 	if ((r == 0 && this->getRadius() == rhs->getRadius()) ||
 		(this->getRadius() + rhs->getRadius() >= r &&
 			this->getRadius() + r >= rhs->getRadius() &&
 			rhs->getRadius() + r >= this->getRadius()))
 	{
-		power = (this->getRadius() + rhs->getRadius() - r) + 2;
-		distance += (power * 256);
-		findDest(getPosX(), getPosY(),
+		// udate power and distance
+		power = this->getRadius() + rhs->getRadius() - r + 2;
+		distance = (power * 256);
+
+		//search destination
+		findDest(this->getPosX(), this->getPosY(),
 			rhs->getPosX(), rhs->getPosY(), destX, destY, distance);
 
-		move();
+		// move();
 		return true;
 	}
 	return false;
 }
 
 // checks if puck close to borders
-void	Puck::borders()
+void Puck::borders()
 {
-	if (getPosY() < 32 && (getPosX() < 160 || getPosX() > 340))
+	// up border check
+	if (getPosY() < upBorder &&
+		destY < upBorder &&
+		(getPosX() < gateStart || getPosX() > gateEnd))
 	{
-		destY = 2000;
+		destY = upBorder + ((destY > 0) ? destY : abs(destY + getRadius()));
 	}
-	if (getPosY() > 968 && (getPosX() < 160 || getPosX() > 340))
+
+	// down border check
+	if (getPosY() > downBorder &&
+		destY > downBorder &&
+		(getPosX() < gateStart || getPosX() > gateEnd))
 	{
-		destY = -1000;
+		destY = downBorder - (destY - downBorder);
 	}
-	if (getPosX() < 32)
+
+	// left border check
+	if (getPosX() < leftBorder &&
+		destX < leftBorder)
 	{
-		destX = 1000;
-		if (getPosX() < 16)
-			setPosX(getPosX() + 32);
+		destX = leftBorder + ((destX > 0) ? destX : abs(destX + getRadius()));
 	}
-	if (getPosX() > 468)
+
+	//right border check
+	if (getPosX() > rightBorder &&
+		destX > rightBorder)
 	{
-		destX = -500;
-		if (getPosX() > 484)
-			setPosX(getPosX() - 32);
+		destX = rightBorder - (destX - rightBorder);
 	}
 }
 
 // move puck
-void	Puck::move()
+void Puck::move()
 {
-	if (power)
+	if (power && distance > 0)
 	{
-		int deltaX = abs(destX - getPosX());
-		int deltaY = abs(destY - getPosY());
-		int signX = getPosX() < destX ? 1 : -1;
-		int signY = getPosY() < destY ? 1 : -1;
-		int error = deltaX - deltaY;
-		for (int i = power;
-			i > 0 && (getPosY() != destY || getPosX() != destX); i--)
+		// builds line to move
+		// move speed is equals to power
+		for (int i = power; i > 0 && (getPosY() != destY || getPosX() != destX);i--)
 		{
-			borders(); // need improvement
-			
+			borders(); // border collision check
+
+			int deltaX = abs(destX - getPosX());
+			int deltaY = abs(destY - getPosY());
+			int signX = getPosX() < destX ? 1 : -1;
+			int signY = getPosY() < destY ? 1 : -1;
+			int error = deltaX - deltaY;
+
 			int error2 = error * 2;
 			if (error2 > -deltaY)
 			{
@@ -100,7 +138,8 @@ void	Puck::move()
 			{
 				error += deltaX;
 				setPosY(getPosY() + signY);
-			}			
+			}
 		}
+		distance -= power;
 	}
 }

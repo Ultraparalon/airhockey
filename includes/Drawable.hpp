@@ -35,7 +35,11 @@ public:
 
 	void setPosX(const int x);
 	void setPosY(const int y);
+	void setPos(const int, const int);
 	void setName(const std::string str);
+
+	void moveY(const int);
+	void moveX(const int);
 	
 };
 

@@ -14,6 +14,8 @@ void Bot::addPoint()
 	score++;
 }
 
+// bot is just pursuits puck
+// with constant speed
 void Bot::move(Drawable const * const rhs)
 {
 	for (int i = speed; i; i--)
