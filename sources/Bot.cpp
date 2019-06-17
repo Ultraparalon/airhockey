@@ -3,6 +3,11 @@
 Bot::Bot() : Round(32, 250, 250, ENEMY), speed(3), score(0) {};
 Bot::~Bot() {}
 
+void Bot::initBorder(const int rhs)
+{
+	border = rhs / 2 - getRadius();
+}
+
 //Getters------------------------------------
 int Bot::getScore()
 {
@@ -22,20 +27,20 @@ void Bot::move(Drawable const * const rhs)
 	{
 		if (rhs->getPosX() > this->getPosX())
 		{
-			this->setPosX(this->getPosX() + 1);
+			this->moveX(1);
 		}
 		else
 		{
-			this->setPosX(this->getPosX() - 1);
+			this->moveX(-1);
 		}
 
-		if (this->getPosY() <= 448 && rhs->getPosY() > this->getPosY()) // invisible barrier in the middle of the table
+		if (this->getPosY() <= border && rhs->getPosY() > this->getPosY()) // invisible barrier in the middle of the table
 		{
-			this->setPosY(this->getPosY() + 1);
+			this->moveY(1);
 		}
 		else
 		{
-			this->setPosY(this->getPosY() - 1);
+			this->moveY(-1);
 		}
 	}
 }

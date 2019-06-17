@@ -43,12 +43,14 @@ Gui::~Gui()
 
 void	Gui::drawObj(const std::list<Drawable const * const> & rhs)
 {
+	// draw background
 	std::shared_ptr<Texture> t(tFactory.createTexture(BACK));
 	if (t != nullptr)
 	{
 		SDL_RenderCopy(ren, t->getTexture(), NULL, NULL);
 	}
 
+	// draw objects
 	for (std::list<Drawable const * const>::const_iterator it = rhs.begin(); it != rhs.end(); it++)
 	{
 		t = std::shared_ptr<Texture>(tFactory.createTexture((*it)));

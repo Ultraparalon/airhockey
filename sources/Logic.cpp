@@ -7,6 +7,8 @@ Logic::Logic()
 	p_score = Drawable(750, 250, STRING, "0");
 
 	puck.initBorders(table.getSizeY(), table.getSizeX());
+	player.initBorders(table.getSizeY(), table.getSizeX());
+	bot.initBorder(table.getSizeY());
 
 	sound = 0;
 
@@ -37,11 +39,11 @@ void	Logic::process(const EventKeeper & ek)
 	sound = 0;
 	player.move(ek.getMouseY(), ek.getMouseX());
 	bot.move(&puck);
-	if (puck.collision(&player)) //check collisiion of puck with player
+	if (puck.collision(&bot)) //check collisiion of puck with player
 	{
 		sound = 1;
 	}
-	if (puck.collision(&bot)) // and bot
+	if (puck.collision(&player)) // and bot
 	{
 		sound = 1;
 	}

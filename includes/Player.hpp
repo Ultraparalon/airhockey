@@ -7,9 +7,14 @@ class Player : public Round
 {
 	int score;
 
+	int upBorder, downBorder;
+	int leftBorder, rightBorder;
+
 public:
 	Player();
 	~Player();
+
+	void initBorders(const int, const int);
 
 	int getScore() const;
 

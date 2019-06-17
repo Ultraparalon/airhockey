@@ -53,3 +53,14 @@ void Drawable::setName(const std::string str)
 {
 	name = str;
 }
+
+// move functions------------
+void Drawable::moveY(const int y)
+{
+	posy += y;
+}
+
+void Drawable::moveX(const int x)
+{
+	posx += x;
+}

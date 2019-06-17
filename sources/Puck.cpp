@@ -132,12 +132,12 @@ void Puck::move()
 			if (error2 > -deltaY)
 			{
 				error -= deltaY;
-				setPosX(getPosX() + signX);
+				moveX(signX);
 			}
 			if (error2 < deltaX)
 			{
 				error += deltaX;
-				setPosY(getPosY() + signY);
+				moveY(signY);
 			}
 		}
 		distance -= power;
